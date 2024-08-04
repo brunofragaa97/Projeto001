@@ -1,0 +1,40 @@
+{
+    "Title": "The Patriot",
+    "Year": "2000",
+    "Rated": "R",
+    "Released": "28 Jun 2000",
+    "Runtime": "165 min",
+    "Genre": "Action, Drama, History",
+    "Director": "Roland Emmerich",
+    "Writer": "Robert Rodat",
+    "Actors": "Mel Gibson, Heath Ledger, Joely Richardson",
+    "Plot": "Peaceful farmer Benjamin Martin is driven to lead the Colonial Militia during the American Revolution when a sadistic British officer murders his son.",
+    "Language": "English, French",
+    "Country": "United States, Germany",
+    "Awards": "Nominated for 3 Oscars. 9 wins & 23 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BNjUxYzliZjUtZTcyZS00NjQ2LTkxZWMtMzg5OWUxZGZkODFjXkEyXkFqcGdeQXVyMTUzMDUzNTI3._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Internet Movie Database",
+            "Value": "7.2/10"
+        },
+        {
+            "Source": "Rotten Tomatoes",
+            "Value": "62%"
+        },
+        {
+            "Source": "Metacritic",
+            "Value": "63/100"
+        }
+    ],
+    "Metascore": "63",
+    "imdbRating": "7.2",
+    "imdbVotes": "296,131",
+    "imdbID": "tt0187393",
+    "Type": "movie",
+    "DVD": "N/A",
+    "BoxOffice": "$113,330,342",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True"
+}

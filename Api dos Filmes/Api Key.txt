@@ -1,0 +1,13 @@
+
+The OMDb API <donotreply@omdbapi.com>
+11:11 (há 0 minuto)
+para mim
+
+Here is your key: db1cfbf6
+
+Please append it to all of your API requests,
+
+OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=db1cfbf6
+
+Click the following URL to activate your key: http://www.omdbapi.com/apikey.aspx?VERIFYKEY=ea9427ad-e73a-42fd-b210-d745e839bf64
+If you did not make this request, please disregard this email.

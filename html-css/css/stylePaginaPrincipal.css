@@ -1,0 +1,91 @@
+:root {
+    --primary-color: #00008B;
+    --secondary-color: #696969;
+    --letras: #F8F8FF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+button{
+    all: unset;
+    cursor: pointer;
+    
+}
+header{ 
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--letras);
+    
+
+}
+
+#search-container{
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.input-wrapper-movie{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper-movie > input{
+    width: 20rem;
+}
+
+.input-wrapper-year{
+    width: 50%;
+    text-align: center;
+    margin-left: 10px;
+}
+.input-wrapper-year > input{
+    max-width: 10rem;
+}
+
+.input-wrapper-year > input , .input-wrapper-movie > input{
+    margin-left: 0.1rem;
+    border-radius: 20PX;
+    text-align: center;
+    color: aqua;
+    background-color: #696969;
+    padding: 0.3rem;
+}
+
+#search-button {
+    margin-right: 20px;
+    all: unset;
+    padding: 0.4rem;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    background-color: red;
+}
+#search-button:focus , #search-button:hover{
+    background-color: rgb(6, 245, 46);
+    border-radius: 10px;
+}
+
+header > h2 > i{
+    margin-right: 1.0rem;
+}
+
+/* Define a animação para a classe .blinking-text */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.blinking-text {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: var(--letras);
+    animation: blink 1s infinite; /* Aplica a animação */
+}
