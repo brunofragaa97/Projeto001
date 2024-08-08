@@ -13,8 +13,16 @@
 </head>
 <body>
                         <!-- Aqui é feito o cabeçalho do projeto-->
-    <header>
+    <header id="corcabecalho1" class="corcabecalho1">
         <h2><p class="blinking-text"><i class="bi bi-film"></i>      Meus Filmes.com</p></h2> <!--Aqui tem o icone de Filme no canto superior esquero-->
+        
+        <div class="toggle-container">
+            <span>ALTERAR TEMA</span>
+            <label id="alterar-tema" class="switch">
+                <input  type="checkbox">
+                <span id="alterar-tema" class="slider"></span>
+            </label>
+        </div>
         <section id="search-container">
             <div class="input-wrapper-movie">
                 <label for="movie-name">FILME </label>
@@ -46,13 +54,13 @@
                                 lead the Colonial Militia during the American Revolution
                                 when a sadistic British officer murders his son.",
                             </h3>
-                            <p id="movie--cast">
+                            <p id="movie-cast">
                                <h4>Atores:</h4>
-                               <h6>Mel Gibson, Heath Ledger, Joely Richardson"</h6>
+                               <h6 id="movie-actors">Mel Gibson, Heath Ledger, Joely Richardson"</h6>
                             </p>
-                            <div id="movie-genre">
+                            <div >
                                <h4>Genero:</h4>
-                                <h6>Drama, History</h6>
+                                <h6 id="movie-genre">Drama, History</h6>
                             </div>
                         </div>
                 </section>
