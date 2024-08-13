@@ -63,6 +63,10 @@
     display: flex;
     padding: 1rem 0;
 }
+#ano-filme{
+    display: flex;
+    padding: 1rem 0;
+}
 #add-to-list{
     cursor: pointer;
     border: 3px solid black;
