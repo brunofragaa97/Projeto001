@@ -63,7 +63,11 @@
     display: flex;
     padding: 1rem 0;
 }
-#add-to-list{
+#ano-filme{
+    display: flex;
+    padding: 1rem 0;
+}
+#add-favorite-button{
     cursor: pointer;
     border: 3px solid black;
     border-radius: 10px;
@@ -71,7 +75,7 @@
     text-align: center;
     padding: 7px;
 }
-#add-to-list:focus, #add-to-list:hover{
+#add-favorite-button:focus, #add-to-list:hover{
     background-color: aqua;
     columns: black;
 }

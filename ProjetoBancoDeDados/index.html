@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">  <!-- Define a codificação de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Faz o site ser responsivo -->
+    <title>Lista de Usuários</title>  <!-- Define o título da página -->
+</head>
+<body>
+    <h1>Usuários Cadastrados</h1>  <!-- Título principal da página -->
+    <div id="notification" style="display: none; background-color: #4CAF50; color: white; padding: 10px; margin: 10px 0; border-radius: 5px;"></div> <!-- Elemento para exibir notificações, inicialmente oculto -->
+
+    <ul id="usuarios-list"></ul>  <!-- Lista onde os usuários serão exibidos -->
+
+    <h2>Adicionar Novo Usuário</h2>  <!-- Título da seção de adição de usuários -->
+    <form id="add-usuario-form">  <!-- Formulário para adicionar um novo usuário -->
+        <label for="nome">Nome:</label>  <!-- Rótulo para o campo nome -->
+        <input type="text" id="nome" required><br><br>  <!-- Campo de entrada de texto para o nome, obrigatório -->
+
+        <label for="email">Email:</label>  <!-- Rótulo para o campo email -->
+        <input type="email" id="email" required><br><br>  <!-- Campo de entrada de email, obrigatório -->
+
+        <label for="idade">Idade:</label>  <!-- Rótulo para o campo idade -->
+        <input type="number" id="idade" required><br><br>  <!-- Campo de entrada de número para idade, obrigatório -->
+
+        <label for="cpf">CPF:</label>  <!-- Rótulo para o campo CPF -->
+        <input type="text" id="cpf" required><br><br>  <!-- Campo de entrada de texto para CPF, obrigatório -->
+
+        <button type="button" onclick="adicionarUsuario()">Adicionar Usuário</button>  <!-- Botão que chama a função para adicionar usuário -->
+    </form>
+
+    <script>
+        let usuarioRemovido = null;  // Variável para armazenar o usuário removido temporariamente
+
+        // Faz uma requisição ao servidor para buscar os usuários existentes
+        fetch('http://127.0.0.1:5000/usuarios')
+            .then(response => response.json())  // Converte a resposta para JSON
+            .then(data => {
+                const listaUsuarios = document.getElementById('usuarios-list');  // Seleciona a lista de usuários no HTML
+
+                data.forEach(usuario => {  // Para cada usuário retornado
+                    const item = document.createElement('li');  // Cria um novo item de lista
+                    item.textContent = `Nome: ${usuario.nome} / Email: ${usuario.email} / Idade: ${usuario.idade} / CPF: ${usuario.cpf} `;  // Preenche o item com os dados do usuário
+
+                    const removeButton = document.createElement('button');  // Cria um botão para remover o usuário
+                    removeButton.textContent = 'Remover';  // Define o texto do botão
+                    removeButton.onclick = () => removerUsuario(usuario);  // Define a função que será executada ao clicar no botão
+
+                    item.appendChild(removeButton);  // Adiciona o botão ao item da lista
+                    listaUsuarios.appendChild(item);  // Adiciona o item à lista de usuários
+                });
+            })
+            .catch(error => console.error('Erro ao carregar os usuários:', error));  // Mostra um erro no console se houver problemas
+
+        // Função para adicionar um novo usuário
+        function adicionarUsuario() {
+            const nome = document.getElementById('nome').value;  // Pega o valor do campo nome
+            const email = document.getElementById('email').value;  // Pega o valor do campo email
+            const idade = document.getElementById('idade').value;  // Pega o valor do campo idade
+            const cpf = document.getElementById('cpf').value;  // Pega o valor do campo CPF
+
+            const novoUsuario = {  // Cria um objeto com os dados do novo usuário
+                nome: nome,
+                email: email,
+                idade: idade,
+                cpf: cpf
+            };
+
+            fetch('http://127.0.0.1:5000/usuarios', {  // Faz uma requisição POST ao servidor para adicionar o novo usuário
+                method: 'POST',  // Método POST para enviar dados
+                headers: {
+                    'Content-Type': 'application/json'  // Define que os dados estão sendo enviados no formato JSON
+                },
+                body: JSON.stringify(novoUsuario)  // Converte o objeto do usuário em uma string JSON
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();  // Se a resposta for OK, converte para JSON
+                } else {
+                    throw new Error('Erro ao adicionar usuário');  // Lança um erro se algo der errado
+                }
+            })
+            .then(data => {
+                const listaUsuarios = document.getElementById('usuarios-list');  // Seleciona a lista de usuários no HTML
+                const item = document.createElement('li');  // Cria um novo item de lista
+                item.textContent = `Nome: ${data.nome} / Email: ${data.email} / Idade: ${data.idade} / CPF: ${data.cpf}`;  // Preenche o item com os dados do novo usuário
+
+                const removeButton = document.createElement('button');  // Cria um botão para remover o usuário
+                removeButton.textContent = 'Remover';  // Define o texto do botão
+                removeButton.onclick = () => removerUsuario(data);  // Define a função de remoção do usuário
+
+                item.appendChild(removeButton);  // Adiciona o botão ao item da lista
+                listaUsuarios.appendChild(item);  // Adiciona o item à lista de usuários
+
+                document.getElementById('add-usuario-form').reset();  // Reseta o formulário após a adição do usuário
+            })
+            .catch(error => console.error('Erro ao adicionar o usuário:', error));  // Mostra um erro no console se houver problemas
+        }
+
+        // Função para remover um usuário
+        function removerUsuario(usuario) {
+            fetch(`http://127.0.0.1:5000/usuarios/${usuario.id}`, {  // Faz uma requisição DELETE ao servidor para remover o usuário
+                method: 'DELETE'  // Método DELETE para remover dados
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();  // Se a resposta for OK, converte para JSON
+                } else {
+                    throw new Error('Erro ao remover usuário');  // Lança um erro se algo der errado
+                }
+            })
+            .then(data => {
+                console.log(data.message);  // Exibe a mensagem de sucesso no console
+                const listaUsuarios = document.getElementById('usuarios-list');  // Seleciona a lista de usuários no HTML
+                const itemParaRemover = Array.from(listaUsuarios.children).find(li => li.textContent.includes(`Nome: ${usuario.nome}`));  // Encontra o item da lista referente ao usuário removido
+                if (itemParaRemover) {
+                    listaUsuarios.removeChild(itemParaRemover);  // Remove o item da lista
+                }
+
+                usuarioRemovido = usuario;  // Armazena o usuário removido para poder desfazer a remoção
+
+                const notification = document.getElementById('notification');  // Seleciona o elemento de notificação
+                notification.textContent = 'Usuário removido com sucesso!';  // Define o texto da notificação
+                notification.style.display = 'block';  // Exibe a notificação
+
+                const desfazerButton = document.createElement('button');  // Cria um botão de desfazer
+                desfazerButton.textContent = 'Desfazer';  // Define o texto do botão
+                desfazerButton.onclick = desfazerRemocao;  // Define a função de desfazer remoção
+
+                notification.appendChild(desfazerButton);  // Adiciona o botão de desfazer à notificação
+
+                setTimeout(() => {  // Define um tempo para a notificação desaparecer após 5 segundos
+                    notification.style.display = 'none';  // Oculta a notificação
+                    usuarioRemovido = null;  // Limpa a variável de usuário removido
+                }, 5000);
+            })
+            .catch(error => console.error('Erro ao remover o usuário:', error));  // Mostra um erro no console se houver problemas
+        }
+
+        // Função para desfazer a remoção de um usuário
+        function desfazerRemocao() {
+            if (usuarioRemovido) {  // Se houver um usuário removido para desfazer
+                fetch('http://127.0.0.1:5000/usuarios', {  // Faz uma requisição POST para adicionar o usuário de volta
+                    method: 'POST',  // Método POST para enviar dados
+                    headers: {
+                        'Content-Type': 'application/json'  // Define que os dados estão sendo enviados no formato JSON
+                    },
+                    body: JSON.stringify(usuarioRemovido)  // Converte o usuário removido em uma string JSON
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();  // Se a resposta for OK, converte para JSON
+                    } else {
+                        throw new Error('Erro ao adicionar usuário de volta');  // Lança um erro se algo der errado
+                    }
+                })
+                .then(data => {
+                    const listaUsuarios = document.getElementById('usuarios-list');  // Seleciona a lista de usuários no HTML
+                    const item = document.createElement('li');  // Cria um novo item de lista
+                    item.textContent = `Nome: ${data.nome} / Email: ${data.email} / Idade: ${data.idade} / CPF: ${data.cpf}`;  // Preenche o item com os dados do usuário
+
+                    const removeButton = document.createElement('button');  // Cria um botão para remover o usuário
+                    removeButton.textContent = 'Remover';  // Define o texto do botão
+                    removeButton.onclick = () => removerUsuario(data);  // Define a função de remoção do usuário
+
+                    item.appendChild(removeButton);  // Adiciona o botão ao item da lista
+                    listaUsuarios.appendChild(item);  // Adiciona o item à lista de usuários
+
+                    const notification = document.getElementById('notification');  // Seleciona o elemento de notificação
+                    notification.style.display = 'none';  // Oculta a notificação
+                    usuarioRemovido = null;  // Limpa a variável de usuário removido
+                })
+                .catch(error => console.error('Erro ao desfazer remoção do usuário:', error));  // Mostra um erro no console se houver problemas
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;  /* Define a fonte como Arial */
+            background-color: #f4f4f4;  /* Define a cor de fundo */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;  /* Define a cor dos títulos */
+        }
+
+        ul {
+            list-style-type: none;  /* Remove a marcação padrão da lista */
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;  /* Define a cor de fundo dos itens da lista */
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;  /* Adiciona bordas arredondadas */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Adiciona sombra ao redor dos itens */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;  /* Define os rótulos em negrito */
+        }
+
+        input {
+            padding: 5px;
+            margin-top: 5px;
+            width: 100%;  /* Define os campos de entrada para ocupar toda a largura */
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;  /* Define a cor de fundo do botão */
+            color: white;  /* Define a cor do texto do botão */
+            border: none;
+            border-radius: 5px;  /* Adiciona bordas arredondadas ao botão */
+            cursor: pointer;  /* Define o cursor como 'pointer' (mãozinha) ao passar sobre o botão */
+        }
+
+        button:hover {
+            background-color: #45a049;  /* Altera a cor do botão ao passar o mouse */
+        }
+    </style>
+</body>
+</html>

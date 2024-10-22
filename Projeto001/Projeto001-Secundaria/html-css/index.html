@@ -4,23 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto Lista de Filmes</title>
+
     <link rel="stylesheet" href="css/stylePaginaPrincipal.css"/>
     <link 
      rel="stylesheet" 
-     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-     />
+     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
      <link rel="stylesheet" href="css/modal.css"/>
+     <link rel="stylesheet" href="notie-master/dist/notie.min.css"/>
 </head>
 <body>
-                        <!-- Aqui é feito o cabeçalho do projeto-->
-    <header id="corcabecalho1" class="corcabecalho1">
-        <h2><p class="blinking-text"><i class="bi bi-film"></i>      Meus Filmes.com</p></h2> <!--Aqui tem o icone de Filme no canto superior esquero-->
-        
+    <header id="corcabecalho" class="corcabecalho1">
+        <h2><p class="blinking-text"><i class="bi bi-film"></i> Meus Filmes.com</p></h2>
         <div class="toggle-container">
             <span>ALTERAR TEMA</span>
-            <label id="alterar-tema" class="switch">
-                <input  type="checkbox">
-                <span id="alterar-tema" class="slider"></span>
+            <label class="switch">
+                <input id="alterar-tema-checkbox" type="checkbox">
+                <span class="slider"></span>
             </label>
         </div>
         <section id="search-container">
@@ -38,39 +37,34 @@
     <main>
         <h2>Comece agora sua lista de filmes!</h2>
         <section id="movie-list"></section>
-                                    <!--AQUI CRIA A ESTRUTURA DO MODAL QUE VAI SER CHAMADO COM JAVA SCRIPT-->
         <article id="modal-overlay" class="overlay">
             <section id="modal-background"></section>
             <section id="modal-container">
-                <h2 id="movie-title">Titulo do Filme</h2>
+                <h2 id="movie-title">Titulo do Filme </h2><h2 id="ano-filme"> ANO?</h2>
                 <section id="modal-body">
                     <img id="movie-poster"
                         src="https://m.media-amazon.com/images/M/MV5BNjUxYzliZjUtZTcyZS00NjQ2LTkxZWMtMzg5OWUxZGZkODFjXkEyXkFqcGdeQXVyMTUzMDUzNTI3._V1_SX300.jpg"
-                        alt ="Poster do Filme"
-                        />
-                        <div id="movie-info">
-                            <h3 id="movie-plot">
-                                Descrição: Peaceful farmer Benjamin Martin is driven to
-                                lead the Colonial Militia during the American Revolution
-                                when a sadistic British officer murders his son.",
-                            </h3>
-                            <p id="movie-cast">
-                               <h4>Atores:</h4>
-                               <h6 id="movie-actors">Mel Gibson, Heath Ledger, Joely Richardson"</h6>
-                            </p>
-                            <div >
-                               <h4>Genero:</h4>
-                                <h6 id="movie-genre">Drama, History</h6>
-                            </div>
+                        alt ="Poster do Filme"/>
+                    <div id="movie-info">
+                        <h3 id="movie-plot">Descrição: ...</h3>
+                        <p id="movie-cast">
+                           <h4>Atores:</h4>
+                           <h6 id="movie-actors">...</h6>
+                        </p>
+                        <div>
+                           <h4>Genero:</h4>
+                           <h6 id="movie-genre">...</h6>
                         </div>
+                    </div>
                 </section>
                 <section id="modal-footer">
-                    <button id="add-to-list">ADCIONAR A Lista</button>
+                    <button id="add-favorite-button">ADCIONAR A Lista</button> <!-- Renomeado para combinar com o JavaScript -->
                 </section>
             </section>
         </article>
     </main>
     <script src="JS/jsPaginaPrincipal.js"></script>
     <script src="JS/modal.js"></script>
+    <script src="notie-master/dist/notie.min.js"></script>
 </body>
 </html>
